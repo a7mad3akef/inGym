@@ -153,6 +153,7 @@ function handleMessage(sender_psid, received_message) {
         //               ]
         //         }
         //     }  
+        // }
         response = {
             "attachment": {
               "type": "template",
@@ -178,7 +179,7 @@ function handleMessage(sender_psid, received_message) {
               }
             }
           }
-        }
+        
       } else  {
         response = {
             "text": `You sent the message: "${received_message.text}".`
