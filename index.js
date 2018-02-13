@@ -89,70 +89,95 @@ function handleMessage(sender_psid, received_message) {
       // will be added to the body of our request to the Send API
       if (received_message.text == 'list'){
         console.log('accepting request to display list')
+        // response = {
+        //     "attachment": {
+        //         "type": "template",
+        //         "top_element_style": "compact",
+        //         "payload": {
+        //             "template_type": "list",
+        //             "elements": [
+        //                 {
+        //                   "title": "Classic T-Shirt Collection",
+        //                   "subtitle": "See all our colors",
+        //                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
+        //                   "buttons": [
+        //                     {
+        //                       "title": "View",
+        //                       "type": "web_url",
+        //                       "url": "https://peterssendreceiveapp.ngrok.io/collection",
+        //                       "messenger_extensions": true,
+        //                       "webview_height_ratio": "tall",
+        //                       "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+        //                     }
+        //                   ]
+        //                 },
+        //                 {
+        //                   "title": "Classic White T-Shirt",
+        //                   "subtitle": "See all our colors",
+        //                   "default_action": {
+        //                     "type": "web_url",
+        //                     "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+        //                     "messenger_extensions": false,
+        //                     "webview_height_ratio": "tall"
+        //                   }
+        //                 },
+        //                 {
+        //                   "title": "Classic Blue T-Shirt",
+        //                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+        //                   "subtitle": "100% Cotton, 200% Comfortable",
+        //                   "default_action": {
+        //                     "type": "web_url",
+        //                     "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+        //                     "messenger_extensions": true,
+        //                     "webview_height_ratio": "tall",
+        //                     "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+        //                   },
+        //                   "buttons": [
+        //                     {
+        //                       "title": "Shop Now",
+        //                       "type": "web_url",
+        //                       "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+        //                       "messenger_extensions": true,
+        //                       "webview_height_ratio": "tall",
+        //                       "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+        //                     }
+        //                   ]        
+        //                 }
+        //               ],
+        //                "buttons": [
+        //                 {
+        //                   "title": "View More",
+        //                   "type": "postback",
+        //                   "payload": "payload"            
+        //                 }
+        //               ]
+        //         }
+        //     }  
         response = {
             "attachment": {
-                "type": "template",
-                "top_element_style": "compact",
-                "payload": {
-                    "template_type": "list",
-                    "elements": [
-                        {
-                          "title": "Classic T-Shirt Collection",
-                          "subtitle": "See all our colors",
-                          "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
-                          "buttons": [
-                            {
-                              "title": "View",
-                              "type": "web_url",
-                              "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                              "messenger_extensions": true,
-                              "webview_height_ratio": "tall",
-                              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-                            }
-                          ]
-                        },
-                        {
-                          "title": "Classic White T-Shirt",
-                          "subtitle": "See all our colors",
-                          "default_action": {
-                            "type": "web_url",
-                            "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                            "messenger_extensions": false,
-                            "webview_height_ratio": "tall"
-                          }
-                        },
-                        {
-                          "title": "Classic Blue T-Shirt",
-                          "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-                          "subtitle": "100% Cotton, 200% Comfortable",
-                          "default_action": {
-                            "type": "web_url",
-                            "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                            "messenger_extensions": true,
-                            "webview_height_ratio": "tall",
-                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                          },
-                          "buttons": [
-                            {
-                              "title": "Shop Now",
-                              "type": "web_url",
-                              "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                              "messenger_extensions": true,
-                              "webview_height_ratio": "tall",
-                              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-                            }
-                          ]        
-                        }
-                      ],
-                       "buttons": [
-                        {
-                          "title": "View More",
-                          "type": "postback",
-                          "payload": "payload"            
-                        }
-                      ]
-                }
-            }  
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "elements": [{
+                  "title": "Is this the right picture?",
+                  "subtitle": "Tap a button to answer.",
+                  "image_url": "https://kickz.akamaized.net/en/media/images/p/1200/kreem-FUCK_YOU_BUCKET_HAT-black_white-2.jpg",
+                  "buttons": [
+                    {
+                      "type": "postback",
+                      "title": "Yes!",
+                      "payload": "yes",
+                    },
+                    {
+                      "type": "postback",
+                      "title": "No!",
+                      "payload": "no",
+                    }
+                  ],
+                }]
+              }
+            }
+          }
         }
       } else  {
         response = {
