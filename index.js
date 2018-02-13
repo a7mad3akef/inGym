@@ -158,24 +158,24 @@ function handleMessage(sender_psid, received_message) {
             "attachment": {
               "type": "template",
               "payload": {
-                "template_type": "generic",
-                "elements": [{
-                  "title": "Is this the right picture?",
-                  "subtitle": "Tap a button to answer.",
-                  "image_url": "https://kickz.akamaized.net/en/media/images/p/1200/kreem-FUCK_YOU_BUCKET_HAT-black_white-2.jpg",
-                  "buttons": [
+                "template_type": "list",
+                "elements": [
                     {
-                      "type": "postback",
-                      "title": "Yes!",
-                      "payload": "yes",
-                    },
-                    {
-                      "type": "postback",
-                      "title": "No!",
-                      "payload": "no",
+                        "title": "Classic T-Shirt Collection",
+                        "subtitle": "See all our colors",
+                        "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
+                        "buttons": [
+                          {
+                            "title": "View",
+                            "type": "web_url",
+                            "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+                          }
+                        ]
                     }
-                  ],
-                }]
+                ]
               }
             }
           }
