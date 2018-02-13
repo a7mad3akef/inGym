@@ -19,7 +19,8 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 var conversation = new ConversationV1({
   username: '2cd3627b-337a-4468-93da-73c630e9a008',
   password: '22BbK6Xl8E5a',
-  version_date: ConversationV1.VERSION_DATE_2018_02_13
+  version_date: ConversationV1.VERSION_DATE_2017_05_26
+
 });
 
 // Creates the endpoint for our webhook 
