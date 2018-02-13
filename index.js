@@ -13,6 +13,14 @@ const PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
+//Watson NLU
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+
+var conversation = new ConversationV1({
+  username: '2cd3627b-337a-4468-93da-73c630e9a008',
+  password: '22BbK6Xl8E5a',
+  version_date: ConversationV1.VERSION_DATE_2018_02_13
+});
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -87,9 +95,33 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {    
       // Create the payload for a basic text message, which
       // will be added to the body of our request to the Send API
+
+      conversation.message(
+        {
+            input: { text: answer },
+            workspace_id: '5b94c914-5101-499b-b6a2-c0d1483f16a6'
+        },
+        function(err, res) {
+            if (err) {
+            console.error(err);
+            } else {
+                if (res.intents.length > 0) {
+                  response = {
+                    "text": res.output.text[0]
+                  }
+                  console.log(JSON.stringify(res, null, 2));
+                }else{
+                    console.log(JSON.stringify(res, null, 2));
+                }
+            //console.log(JSON.stringify(res, null, 2));
+            }
+        }
+        );
+      /*  
       response = {
         "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
       }
+      */
     } else if (received_message.attachments) {
       // Get the URL of the message attachment
       let attachment_url = received_message.attachments[0].payload.url;
