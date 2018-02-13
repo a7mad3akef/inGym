@@ -99,7 +99,7 @@ function handleMessage(sender_psid, received_message) {
 
       conversation.message(
         {
-            input: { text: answer },
+            input: { text: received_message.text },
             workspace_id: '5b94c914-5101-499b-b6a2-c0d1483f16a6'
         },
         function(err, res) {
