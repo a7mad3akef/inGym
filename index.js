@@ -273,7 +273,7 @@ function getUserInfo(sender_psid){
     request("https://graph.facebook.com/v2.6/"+sender_psid+"?fields=first_name,last_name,gender,profile_pic&access_token="+PAGE_ACCESS_TOKEN, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         console.log(body);
-        create_user(sender_psid, body);
+        find_or_create_user(sender_psid, body);
       });
 }  
 
@@ -284,6 +284,26 @@ function create_user(psid, info){
           if (err) throw err;
           console.log("1 document inserted");
           db.close();
+        });
+      });
+}
+
+var find_or_create_user = function(user_psid, info){
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var query = { id: user_psid };
+        db.collection("customers").find(query).toArray(function(err, result) {
+          if (err) throw err;
+          db.close();
+          console.log(result.length)
+          if (result.length == 0 ){
+            console.log('add a customer to the db')
+            create_user(user_psid, info);
+            } else {
+                console.log('found the customer')
+                console.log(result);
+            }
+          return result;
         });
       });
 }
