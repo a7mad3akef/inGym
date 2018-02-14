@@ -87,7 +87,7 @@ app.get('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
-    
+    getUserInfo(sender_psid);
     // Checks if the message contains text
     if (received_message.text) {    
       // Create the payload for a basic text message, which
@@ -181,11 +181,25 @@ function handleMessage(sender_psid, received_message) {
             
           }
         
-      } else if (received_message.text == 'info') {
-          getUserInfo(sender_psid);
-          response = {
-            "text": "thank for your info"
-          }
+      } else if (received_message.text == 'hi') {
+          getUserInfo(user_psid,function(body){
+            response = {
+                "text": "Hello "+body.first_name+", I am your trainer bot./nPlease choose your progrm",
+                "quick_replies":[
+                    {
+                      "content_type":"text",
+                      "title":"Muscle Gain",
+                      "payload":"muscle_gain"
+                    },
+                    {
+                        "content_type":"text",
+                        "title":"Weight Loss",
+                        "payload":"weight_loss"
+                    }
+                  ]
+              }
+          })
+          
       } 
       else {
         response = {
@@ -239,6 +253,10 @@ function handlePostback(sender_psid, received_postback) {
       response = { "text": "Thanks!" }
     } else if (payload === 'no') {
       response = { "text": "Oops, try sending another image." }
+    } else if (payload == 'muscle_gain'){
+        response = { "text": "You choosed Muscle Gain" }
+    } else if (payload == 'weight_loss'){
+        resposne = { "text": "You choosed Weight Loss" }
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -269,10 +287,11 @@ function callSendAPI(sender_psid, response) {
     }); 
   }
 
-function getUserInfo(sender_psid){
+function getUserInfo(sender_psid,callback){
     request("https://graph.facebook.com/v2.6/"+sender_psid+"?fields=first_name,last_name,gender,profile_pic&access_token="+PAGE_ACCESS_TOKEN, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         console.log(body);
+        callback(body);
         find_or_create_user(sender_psid, body);
       });
 }  
@@ -295,12 +314,11 @@ var find_or_create_user = function(user_psid, info){
         db.collection("users").find(query).toArray(function(err, result) {
           if (err) throw err;
           db.close();
-          console.log(result.length)
           if (result.length == 0 ){
-            console.log('add a customer to the db')
+            console.log('add user to the db')
             create_user(user_psid, info);
             } else {
-                console.log('found the customer')
+                console.log('found the user')
                 console.log(result);
             }
           return result;
