@@ -273,6 +273,17 @@ function getUserInfo(sender_psid){
     request("https://graph.facebook.com/v2.6/"+sender_psid+"?fields=first_name,last_name,gender,profile_pic&access_token="+PAGE_ACCESS_TOKEN, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         console.log(body);
-        console.log(body.explanation);
+        create_user(sender_psid, body);
       });
 }  
+
+function create_user(psid, info){
+    MongoClient.connect(url, function(err, db) {
+        var myobj = info;
+        dbo.collection("users").insertOne(myobj, function(err, res) {
+          if (err) throw err;
+          console.log("1 document inserted");
+          db.close();
+        });
+      });
+}
