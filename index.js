@@ -280,7 +280,7 @@ function getUserInfo(sender_psid){
 function create_user(psid, info){
     MongoClient.connect(url, function(err, db) {
         var myobj = info;
-        dbo.collection("users").insertOne(myobj, function(err, res) {
+        db.collection("users").insertOne(myobj, function(err, res) {
           if (err) throw err;
           console.log("1 document inserted");
           db.close();
