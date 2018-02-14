@@ -7,7 +7,12 @@ const
   app = express().use(bodyParser.json()),
   request = require('request'); // creates express http server
 
-const PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;  
+const PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN; 
+
+//DB configurations
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var url = "mongodb://akef:akef@ds233748.mlab.com:33748/ingym";
 
 
 // Sets server port and logs message on success
@@ -176,7 +181,13 @@ function handleMessage(sender_psid, received_message) {
             
           }
         
-      } else  {
+      } else if (received_message.text == 'info') {
+          getUserInfo(sender_psid);
+          response = {
+            "text": "thank for your info"
+          }
+      } 
+      else {
         response = {
             "text": `You sent the message: "${received_message.text}".`
           }
@@ -257,3 +268,11 @@ function callSendAPI(sender_psid, response) {
       }
     }); 
   }
+
+function getUserInfo(sender_psid){
+    request("https://graph.facebook.com/v2.6/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN, { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        console.log(body);
+        console.log(body.explanation);
+      });
+}  
