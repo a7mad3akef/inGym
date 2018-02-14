@@ -87,8 +87,8 @@ app.get('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
-    getUserInfo(sender_psid,function(){
-        
+    getUserInfo(sender_psid,function(body){
+        console.log(body)
     });
     // Checks if the message contains text
     if (received_message.text) {    
