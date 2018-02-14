@@ -292,7 +292,7 @@ var find_or_create_user = function(user_psid, info){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = { id: user_psid };
-        db.collection("customers").find(query).toArray(function(err, result) {
+        db.collection("users").find(query).toArray(function(err, result) {
           if (err) throw err;
           db.close();
           console.log(result.length)
