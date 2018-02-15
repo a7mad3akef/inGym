@@ -15,6 +15,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://akef:akef@ds233748.mlab.com:33748/ingym";
 
 var theprogram = ''
+var theperiod = ''
 var thelevel = ''
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -159,7 +160,7 @@ function handleMessage(sender_psid, received_message) {
         } else if (received_message.text == 'Weight Loss'){
           // update_user_program(sender_psid,'weight_loss')
           theprogram = 'Weight Loss'
-          response = { "text": "Please choose your level",
+          response = { "text": "Please choose your period",
                         "quick_replies":[
                           {
                             "content_type":"text",
@@ -175,12 +176,58 @@ function handleMessage(sender_psid, received_message) {
           
         } else if (received_message.text == '4 Weeks'){
           // update_user_program(sender_psid,'muscle_gain')
-          thelevel = '4 Weeks'
-          response = { "text": "Here is your program" }
+          theperiod = '4 Weeks'
+          response = { "text": "Please choose your level",
+          "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Beginner",
+              "payload":"Beginner"
+            },
+            {
+                "content_type":"text",
+                "title":"Intermediate",
+                "payload":"Intermediate"
+            },
+            {
+              "content_type":"text",
+              "title":"Professional",
+              "payload":"Professional"
+          }
+          ] }
         } else if (received_message.text == '8 Weeks'){
           // update_user_program(sender_psid,'weight_loss')
-          thelevel = '8 Weeks'
-          response = { "text": "Here is your program for "+theprogram+' and '+thelevel }
+          theperiod = '8 Weeks'
+          response = { "text": "Please choose your level",
+          "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Beginner",
+              "payload":"Beginner"
+            },
+            {
+                "content_type":"text",
+                "title":"Intermediate",
+                "payload":"Intermediate"
+            },
+            {
+              "content_type":"text",
+              "title":"Professional",
+              "payload":"Professional"
+          }
+          ] }
+        }else if (received_message.text == 'Beginner'){
+          // update_user_program(sender_psid,'muscle_gain')
+          thelevel = 'Beginner'
+          response = { "text": "Here is your program for "+theprogram+' and '+theperiod+' and '+thelevel }
+        } else if (received_message.text == 'Intermediate'){
+          // update_user_program(sender_psid,'weight_loss')
+          thelevel = 'Intermediate'
+          response = { "text": "Here is your program for "+theprogram+' and '+theperiod+' and '+thelevel }
+        }else if (received_message.text == 'Professional'){
+          // update_user_program(sender_psid,'weight_loss')
+          thelevel = 'Professional'
+          response = { "text": "Here is your program for "+theprogram+' and '+theperiod+' and '+thelevel }
         }else {
           response = {
               "text": `You sent the message: "${received_message.text}".`
