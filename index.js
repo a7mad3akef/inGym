@@ -96,71 +96,6 @@ function handleMessage(sender_psid, received_message) {
       // will be added to the body of our request to the Send API
       if (received_message.text == 'list'){
         console.log('accepting request to display list')
-        // response = {
-        //     "attachment": {
-        //         "type": "template",
-        //         "top_element_style": "compact",
-        //         "payload": {
-        //             "template_type": "list",
-        //             "elements": [
-        //                 {
-        //                   "title": "Classic T-Shirt Collection",
-        //                   "subtitle": "See all our colors",
-        //                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
-        //                   "buttons": [
-        //                     {
-        //                       "title": "View",
-        //                       "type": "web_url",
-        //                       "url": "https://peterssendreceiveapp.ngrok.io/collection",
-        //                       "messenger_extensions": true,
-        //                       "webview_height_ratio": "tall",
-        //                       "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-        //                     }
-        //                   ]
-        //                 },
-        //                 {
-        //                   "title": "Classic White T-Shirt",
-        //                   "subtitle": "See all our colors",
-        //                   "default_action": {
-        //                     "type": "web_url",
-        //                     "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-        //                     "messenger_extensions": false,
-        //                     "webview_height_ratio": "tall"
-        //                   }
-        //                 },
-        //                 {
-        //                   "title": "Classic Blue T-Shirt",
-        //                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-        //                   "subtitle": "100% Cotton, 200% Comfortable",
-        //                   "default_action": {
-        //                     "type": "web_url",
-        //                     "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-        //                     "messenger_extensions": true,
-        //                     "webview_height_ratio": "tall",
-        //                     "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-        //                   },
-        //                   "buttons": [
-        //                     {
-        //                       "title": "Shop Now",
-        //                       "type": "web_url",
-        //                       "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-        //                       "messenger_extensions": true,
-        //                       "webview_height_ratio": "tall",
-        //                       "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-        //                     }
-        //                   ]        
-        //                 }
-        //               ],
-        //                "buttons": [
-        //                 {
-        //                   "title": "View More",
-        //                   "type": "postback",
-        //                   "payload": "payload"            
-        //                 }
-        //               ]
-        //         }
-        //     }  
-        // }
         response = {
 
                 "text": "Here is a quick reply!",
@@ -258,8 +193,10 @@ function handlePostback(sender_psid, received_postback) {
     } else if (payload === 'no') {
       response = { "text": "Oops, try sending another image." }
     } else if (payload == 'muscle_gain'){
+        update_user_program(sender_psid,'muscle_gain')
         response = { "text": "You choosed Muscle Gain" }
     } else if (payload == 'weight_loss'){
+        update_user_program(sender_psid,'weight_loss')
         resposne = { "text": "You choosed Weight Loss" }
     }
     // Send the message to acknowledge the postback
@@ -328,4 +265,23 @@ var find_or_create_user = function(user_psid, info){
           return result;
         });
       });
+}
+
+var update_user_program = function(user_psid, info){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var query = { id: user_psid };
+    db.collection("users").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result)
+      result[0].program = info
+      newvalues = result[0]
+      db.collection("users").updateOne(query, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+        return res
+      });
+    });
+  });
 }

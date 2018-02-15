@@ -17,7 +17,7 @@ var find_or_create_user = function(user_psid, info){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = { id: user_psid };
-        db.collection("customers").find(query).toArray(function(err, result) {
+        db.collection("users").find(query).toArray(function(err, result) {
           if (err) throw err;
           db.close();
           console.log(result.length)
@@ -32,7 +32,25 @@ var find_or_create_user = function(user_psid, info){
         });
       });
 }
-
+var update_user_program = function(user_psid, info){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var query = { id: user_psid };
+    db.collection("users").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      
+      console.log(result)
+      result[0].program = info
+      newvalues = result[0]
+      db.collection("users").updateOne(query, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+        db.close();
+        return res
+      });
+    });
+  });
+}
 
 function create_user(psid, info){
     MongoClient.connect(url, function(err, db) {
@@ -45,20 +63,21 @@ function create_user(psid, info){
       });
 }
 
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var query = { id: '1714544488606587' };
-    db.collection("users").find(query).toArray(function(err, result) {
-      if (err) throw err;
-      db.close();
-      console.log(result.length)
-      if (result.length == 0 ){
-        console.log('add a customer to the db')
-        create_user(user_psid, info);
-        } else {
-            console.log('found the customer')
-            console.log(result);
-        }
-      return result;
-    });
-  })
+// MongoClient.connect(url, function(err, db) {
+//     if (err) throw err;
+//     var query = { id: '1714544488606587' };
+//     db.collection("users").find(query).toArray(function(err, result) {
+//       if (err) throw err;
+//       db.close();
+//       console.log(result.length)
+//       if (result.length == 0 ){
+//         console.log('add a customer to the db')
+//         create_user(user_psid, info);
+//         } else {
+//             console.log('found the customer')
+//             console.log(result);
+//         }
+//       return result;
+//     });
+//   })
+update_user_program('1714544488606587','50');
