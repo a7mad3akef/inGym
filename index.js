@@ -15,6 +15,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://akef:akef@ds233748.mlab.com:33748/ingym";
 
 var theprogram = ''
+var thelevel = ''
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -142,15 +143,47 @@ function handleMessage(sender_psid, received_message) {
         } else if (received_message.text == 'Muscle Gain'){
           // update_user_program(sender_psid,'muscle_gain')
           theprogram = 'muscle_gain'
-          response = { "text": "You choosed Muscle Gain" }
+          response = { "text": "Please choose your level",
+                        "quick_replies":[
+                          {
+                            "content_type":"text",
+                            "title":"4 Weeks",
+                            "payload":"4_weeks"
+                          },
+                          {
+                              "content_type":"text",
+                              "title":"8 Weeks",
+                              "payload":"8_weeks"
+                          }
+                        ] }
         } else if (received_message.text == 'Weight Loss'){
           // update_user_program(sender_psid,'weight_loss')
           theprogram = 'weight_loss'
-          resposne = { "text": "You choosed Weight Loss" }
-          console.log('#############################################################')
-      } else {
-        response = {
-            "text": `You sent the message: "${received_message.text}".`
+          response = { "text": "Please choose your level",
+                        "quick_replies":[
+                          {
+                            "content_type":"text",
+                            "title":"4 Weeks",
+                            "payload":"4_weeks"
+                          },
+                          {
+                              "content_type":"text",
+                              "title":"8 Weeks",
+                              "payload":"8_weeks"
+                          }
+                        ] }
+          
+        } else if (received_message.text == '4 Weeks'){
+          // update_user_program(sender_psid,'muscle_gain')
+          theprogram = 'muscle_gain'
+          response = { "text": "Here is your program" }
+        } else if (received_message.text == '8 Weeks'){
+          // update_user_program(sender_psid,'weight_loss')
+          theprogram = 'weight_loss'
+          response = { "text": "Here is your program" }
+        }else {
+          response = {
+              "text": `You sent the message: "${received_message.text}".`
           }
       }
       
