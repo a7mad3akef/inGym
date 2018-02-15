@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
                 if (res.intents.length > 0) {
                    
                   var mess = res.output.text[0]
-                  respnse = {"text": mess}
+                  response = {"text": mess}
                   
                   
                   console.log(response);
