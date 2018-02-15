@@ -87,7 +87,7 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-
+var context = ""
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
@@ -97,17 +97,20 @@ function handleMessage(sender_psid, received_message) {
       // Create the payload for a basic text message, which
       // will be added to the body of our request to the Send API
 
+
       conversation.message(
         {
-            input: { text: received_message.text },
+            input: { text: received_message.text},
+            context:context,
             workspace_id: '264805c6-cf8b-461e-92ad-d09373e727b4'
         },
+        
         function(err, res) {
             if (err) {
             console.error(err);
             } else {
                 if (res.intents.length > 0) {
-                   
+                  context = res.context.conversation_id
                   var mess = res.output.text[0]
                   response = {"text": mess}
                   // Send the response message
