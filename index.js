@@ -200,6 +200,7 @@ function handlePostback(sender_psid, received_postback) {
         update_user_program(sender_psid,'weight_loss')
         theprogram = 'weight_loss'
         resposne = { "text": "You choosed Weight Loss" }
+        console.log('#############################################################')
     }
     // Send the message to acknowledge the postback
     console.log('#############################################################')
