@@ -255,6 +255,8 @@ var find_or_create_user = function(user_psid, info){
         db.collection("users").find(query).toArray(function(err, result) {
           if (err) throw err;
           db.close();
+          console.log('the result #####################################################')
+          console.log(result)
           if (result.length == 0 ){
             console.log('add user to the db')
             create_user(user_psid, info);
