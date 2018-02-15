@@ -107,15 +107,12 @@ function handleMessage(sender_psid, received_message) {
             console.error(err);
             } else {
                 if (res.intents.length > 0) {
-                  var myCallback = function(data) {
-                    response = {
-                      "text": data
-                    }
-                  };
-                  var usingItNow = function(callback) {
-                    callback(mess = res.output.text[0]);
-                  };
-                  usingItNow(myCallback);
+                  var get_message = function(sender,callback){ 
+                    mess = res.output.text[0]
+                    callback({
+                      "text":  mess})
+                  }
+                  response = get_message
                   
                   
                   console.log(res.output.text[0]);
