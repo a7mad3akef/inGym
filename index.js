@@ -186,7 +186,7 @@ function handleMessage(sender_psid, received_message) {
       } else if (received_message.text == 'hi') {
           getUserInfo(sender_psid,function(body){
             response = {
-                "text": "Hello "+body.first_name+", I am your trainer bot./nPlease choose your progrm",
+                "text": "Hello "+body.first_name+", I am your trainer bot."+ "\n" +"Please choose your progrm",
                 "quick_replies":[
                     {
                       "content_type":"text",
