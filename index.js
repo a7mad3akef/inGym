@@ -175,12 +175,12 @@ function handleMessage(sender_psid, received_message) {
           
         } else if (received_message.text == '4 Weeks'){
           // update_user_program(sender_psid,'muscle_gain')
-          theprogram = 'muscle_gain'
+          thelevel = 'muscle_gain'
           response = { "text": "Here is your program" }
         } else if (received_message.text == '8 Weeks'){
           // update_user_program(sender_psid,'weight_loss')
-          theprogram = 'weight_loss'
-          response = { "text": "Here is your program" }
+          thelevel = 'weight_loss'
+          response = { "text": "Here is your program"+theprogram+thelevel }
         }else {
           response = {
               "text": `You sent the message: "${received_message.text}".`
