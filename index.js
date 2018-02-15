@@ -14,7 +14,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://akef:akef@ds233748.mlab.com:33748/ingym";
 
-
+var theprogram = ''
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -194,12 +194,15 @@ function handlePostback(sender_psid, received_postback) {
       response = { "text": "Oops, try sending another image." }
     } else if (payload == 'muscle_gain'){
         update_user_program(sender_psid,'muscle_gain')
+        theprogram = 'muscle_gain'
         response = { "text": "You choosed Muscle Gain" }
     } else if (payload == 'weight_loss'){
         update_user_program(sender_psid,'weight_loss')
+        theprogram = 'weight_loss'
         resposne = { "text": "You choosed Weight Loss" }
     }
     // Send the message to acknowledge the postback
+    console.log('the program is '+ theprogram)
     callSendAPI(sender_psid, response);
   }
 
