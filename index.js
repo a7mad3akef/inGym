@@ -202,6 +202,7 @@ function handlePostback(sender_psid, received_postback) {
         resposne = { "text": "You choosed Weight Loss" }
     }
     // Send the message to acknowledge the postback
+    console.log('#############################################################')
     console.log('the program is '+ theprogram)
     callSendAPI(sender_psid, response);
   }
