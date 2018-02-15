@@ -183,7 +183,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     } 
-    
+    console.log(theprogram)
     // Send the response message
     callSendAPI(sender_psid, response);    
   }
