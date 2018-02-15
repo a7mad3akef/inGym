@@ -233,7 +233,7 @@ function getUserInfo(sender_psid,callback){
         if (err) { return console.log(err); }
         console.log(body);
         callback(body);
-        find_or_create_user(sender_psid, body);
+        // find_or_create_user(sender_psid, body);
       });
 }  
 
