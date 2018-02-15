@@ -142,7 +142,7 @@ function handleMessage(sender_psid, received_message) {
           
         } else if (received_message.text == 'Muscle Gain'){
           // update_user_program(sender_psid,'muscle_gain')
-          theprogram = 'muscle_gain'
+          theprogram = 'Muscle Gain'
           response = { "text": "Please choose your level",
                         "quick_replies":[
                           {
@@ -158,7 +158,7 @@ function handleMessage(sender_psid, received_message) {
                         ] }
         } else if (received_message.text == 'Weight Loss'){
           // update_user_program(sender_psid,'weight_loss')
-          theprogram = 'weight_loss'
+          theprogram = 'Weight Loss'
           response = { "text": "Please choose your level",
                         "quick_replies":[
                           {
@@ -175,12 +175,12 @@ function handleMessage(sender_psid, received_message) {
           
         } else if (received_message.text == '4 Weeks'){
           // update_user_program(sender_psid,'muscle_gain')
-          thelevel = 'muscle_gain'
+          thelevel = '4 Weeks'
           response = { "text": "Here is your program" }
         } else if (received_message.text == '8 Weeks'){
           // update_user_program(sender_psid,'weight_loss')
-          thelevel = 'weight_loss'
-          response = { "text": "Here is your program"+theprogram+thelevel }
+          thelevel = '8 Weeks'
+          response = { "text": "Here is your program for "+theprogram+' and '+thelevel }
         }else {
           response = {
               "text": `You sent the message: "${received_message.text}".`
