@@ -110,6 +110,8 @@ function handleMessage(sender_psid, received_message) {
                    
                   var mess = res.output.text[0]
                   response = {"text": mess}
+                  // Send the response message
+                  callSendAPI(sender_psid, response);
                   
                   
                   console.log(response);
@@ -155,8 +157,7 @@ function handleMessage(sender_psid, received_message) {
       }
     } 
     
-    // Send the response message
-    callSendAPI(sender_psid, response);    
+        
   }
 
 // Handles messaging_postbacks events
