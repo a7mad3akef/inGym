@@ -108,7 +108,7 @@ function handleMessage(sender_psid, received_message) {
             } else {
                 if (res.intents.length > 0) {
                   var get_message = function(sender,callback){ 
-                    mess = res.output.text[0]
+                    var mess = res.output.text[0]
                     callback({"text":  mess})
                   }
                   response = get_message(sender_psid)
