@@ -275,9 +275,11 @@ var update_user_program = function(user_psid, info){
     var query = { id: user_psid };
     db.collection("users").find(query).toArray(function(err, result) {
       if (err) throw err;
-      console.log(result)
-      result[0].program = info
+      
+      result[0].theprogram = info
       newvalues = result[0]
+      console.log('########################################################')
+      console.log(newvalues)
       db.collection("users").updateOne(query, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
