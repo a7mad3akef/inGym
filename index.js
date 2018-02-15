@@ -87,7 +87,7 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-var context = ""
+var context ={}
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
@@ -110,7 +110,7 @@ function handleMessage(sender_psid, received_message) {
             console.error(err);
             } else {
                 if (res.intents.length > 0) {
-                  context = res.context.conversation_id
+                  context = res.context
                   var mess = res.output.text[0]
                   response = {"text": mess}
                   // Send the response message
