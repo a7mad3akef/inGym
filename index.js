@@ -139,11 +139,11 @@ function handleMessage(sender_psid, received_message) {
               callSendAPI(sender_psid, response);   
           })
           
-        } else if (received_message.text == 'muscle_gain'){
+        } else if (received_message.text == 'Muscle Gain'){
           update_user_program(sender_psid,'muscle_gain')
           theprogram = 'muscle_gain'
           response = { "text": "You choosed Muscle Gain" }
-        } else if (received_message.text == 'weight_loss'){
+        } else if (received_message.text == 'Weight Loss'){
           update_user_program(sender_psid,'weight_loss')
           theprogram = 'weight_loss'
           resposne = { "text": "You choosed Weight Loss" }
