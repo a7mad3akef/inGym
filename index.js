@@ -140,11 +140,11 @@ function handleMessage(sender_psid, received_message) {
           })
           
         } else if (received_message.text == 'Muscle Gain'){
-          update_user_program(sender_psid,'muscle_gain')
+          // update_user_program(sender_psid,'muscle_gain')
           theprogram = 'muscle_gain'
           response = { "text": "You choosed Muscle Gain" }
         } else if (received_message.text == 'Weight Loss'){
-          update_user_program(sender_psid,'weight_loss')
+          // update_user_program(sender_psid,'weight_loss')
           theprogram = 'weight_loss'
           resposne = { "text": "You choosed Weight Loss" }
           console.log('#############################################################')
