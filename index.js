@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
             if (err) {
             console.error(err);
             } else {
-                if (res.intents.length > 0) {
+                if (res.output.text[0]) {
                   context = res.context
                   var mess = res.output.text[0]
                   response = {"text": mess}
