@@ -115,7 +115,7 @@ function handleMessage(sender_psid, received_message) {
                   response = get_message
                   
                   
-                  console.log(res.output.text[0]);
+                  console.log(response);
                 }else{
                     console.log(JSON.stringify(res, null, 2));
                 }
